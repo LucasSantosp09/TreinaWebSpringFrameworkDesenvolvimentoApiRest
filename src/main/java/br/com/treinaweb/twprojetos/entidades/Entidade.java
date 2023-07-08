@@ -5,10 +5,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.hateoas.RepresentationModel;
 
 @MappedSuperclass
-public abstract class Entidade {
+public abstract class Entidade extends RepresentationModel<Entidade>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
