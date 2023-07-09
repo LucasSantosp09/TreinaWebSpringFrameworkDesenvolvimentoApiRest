@@ -20,8 +20,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.format.annotation.NumberFormat.Style;
+import org.springframework.hateoas.server.core.Relation;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Relation(collectionRelation = "projetos")
 public class Projeto extends Entidade {
 
     @NotNull
@@ -43,12 +47,14 @@ public class Projeto extends Entidade {
     @DateTimeFormat(iso = ISO.DATE)
     private LocalDate dataFim;
 
+    @JsonIgnore
     @Valid
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id_fk", nullable = false)
     private Cliente cliente;
 
+    @JsonIgnore
     @Valid
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -71,6 +77,7 @@ public class Projeto extends Entidade {
         joinColumns = @JoinColumn(name = "projeto_id_fk"),
         inverseJoinColumns = @JoinColumn(name = "funcionario_id_fk")
     )
+    @JsonIgnore
     private List<Funcionario> equipe;
 
     public String getNome() {

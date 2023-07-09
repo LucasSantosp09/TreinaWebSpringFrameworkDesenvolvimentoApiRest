@@ -3,6 +3,8 @@ package br.com.treinaweb.twprojetos.servicos;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.treinaweb.twprojetos.api.dto.CargoDTO;
@@ -25,10 +27,14 @@ public class CargoServico {
     @Autowired
     private CargoMapeador cargoMapeador;
 
+    public Page<Cargo> buscarTodos(Pageable paginacao) {
+        return cargoRepositorio.findAll(paginacao);
+    }
+
     public List<Cargo> buscarTodos() {
         return cargoRepositorio.findAll();
     }
-
+    
     public Cargo buscarPorId(Long id) {
         Cargo cargoEncontrado = cargoRepositorio.findById(id)
             .orElseThrow(() -> new CargoNaoEncontradoException(id));
