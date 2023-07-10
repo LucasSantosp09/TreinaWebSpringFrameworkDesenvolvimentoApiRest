@@ -16,8 +16,12 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.hateoas.server.core.Relation;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Relation(collectionRelation = "funcionarios")
 public class Funcionario extends Pessoa {
 
     @NotNull
@@ -31,12 +35,14 @@ public class Funcionario extends Pessoa {
     @DateTimeFormat(iso = ISO.DATE)
     private LocalDate dataDemissao;
 
+    @JsonIgnore
     @Valid
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cargo_id_fk", nullable = false)
     private Cargo cargo;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "equipe", fetch = FetchType.EAGER)
     private List<Projeto> projetos;
 
@@ -44,6 +50,7 @@ public class Funcionario extends Pessoa {
     @Column(nullable = false)
     private String senha;
 
+    @JsonIgnore
     public String getSenha() {
         return senha;
     }
