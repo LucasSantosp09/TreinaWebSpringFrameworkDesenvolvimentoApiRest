@@ -44,8 +44,11 @@ public class ProjetosAssembler implements SimpleRepresentationModelAssembler<Pro
 		Link equipeLink = linkTo(methodOn(ProjetoControleApi.class).buscarEquipe(id))
 				.withRel("equipe")
 				.withType("GET");
+		Link atualizarEquipe = linkTo(methodOn(ProjetoControleApi.class).atualizarEquipe(id, null))
+				.withRel("equipe")
+				.withType("PATCH");
 		
-		resource.add(liderLink, clientLink, selLink, editarLink, excluirLink, equipeLink);
+		resource.add(liderLink, clientLink, selLink, editarLink, excluirLink, equipeLink, atualizarEquipe);
 		
 		
 
